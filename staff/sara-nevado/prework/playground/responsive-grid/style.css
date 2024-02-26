@@ -1,0 +1,15 @@
+.container {
+    width: 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px) 200px;
+}
+
+.galaxia {
+    width: 20px;
+    display: grid;
+}
+
+.img {
+    width: 30px;
+    display: grid;
+}
