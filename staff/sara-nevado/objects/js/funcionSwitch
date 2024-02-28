@@ -1,0 +1,7 @@
+var name = 'pepito'
+var surname = 
+switch (name) {
+    case 'Pepito'
+
+
+}

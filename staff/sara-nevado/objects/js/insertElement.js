@@ -1,46 +1,39 @@
+//Este código define una función insertElement que inserta un elemento en un objeto iterable en la posición especificada. 
+//Luego, se usa esta función para insertar 'mandarina' en el índice 2 del objeto fruits y para insertar 40 en el índice 5 
+//del objeto nums. Finalmente, se imprime el objeto actualizado en ambos casos.
+
 function insertElement(object, index, value) {
-
-    //mover la lista a partir del indice marcado
-    //(seria el index)
-    for (var i = 0; i < object.length; i++) {
-
-
-
+    // Mover la lista a partir del índice marcado
+    for (var i = object.length; i > index; i--) {
+        object[i] = object[i - 1];
     }
 
-    //tenemos que poner mandarina (value) en la posicion 2 (index)
-    //ajustar la longitud del objeto 
-    //0: 'manzana',
-    //1: 'piña',
-    //2: 'mandarina'
-    //3: 'fresa',
-    //4: 'tomate',
-    //5: 'naranja',
-    //6: 'plantano',
-    //7: 'pomelo',
-    //length: 8
+    // Insertar el nuevo valor en la posición especificada
+    object[index] = value;
 
+    // Ajustar la longitud del objeto
+    object.length++;
+
+    return object;
 }
-console.log('CASE 1: insert mandarina in index 2')
-var fruits = {
 
+console.log('CASO 1: insertar mandarina en el índice 2');
+var fruits = {
     0: 'manzana',
     1: 'piña',
     2: 'fresa',
     3: 'tomate',
     4: 'naranja',
-    5: 'plantano',
+    5: 'plátano',
     6: 'pomelo',
-
     length: 7
-}
-insertElement(fruits, 2, 'mandarina')
-console.log(fruits)
+};
+insertElement(fruits, 2, 'mandarina');
+console.log(fruits);
 
-console.log('CASE 2: insert 40 in index 5')
+console.log('CASO 2: insertar 40 en el índice 5');
 
 var nums = {
-
     0: 10,
     1: 20,
     2: 30,
@@ -48,11 +41,10 @@ var nums = {
     4: 50,
     5: 60,
     6: 70,
-    7: 80;
+    7: 80,
+    length: 8
+};
 
-    length: 7
-}
+insertElement(nums, 5, 40);
 
-insertElement(nums, 5, 40)
-
-console.log(nums)
+console.log(nums);
