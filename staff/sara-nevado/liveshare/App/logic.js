@@ -85,8 +85,8 @@ function registerUser(name, birthdate, username, email, password) {
             throw new Error('user already exists')
     }
 
-
     var user = {
+        id: parseInt(Math.random() * 1000000000000000000).toString(36),
         name: name,
         birthdate: birthdate,
         username: username,
@@ -120,6 +120,8 @@ function loginUser(username, password) {
 
     var user
 
+    var users = JSON.parse(localStorage.users!! '[]')
+
     for (var i = 0; i < users.length; i++) {
         var user2 = users[i]
 
@@ -152,18 +154,52 @@ function retrieveuser() {
     for (var i = 0; i < users.length; i++) {
         var user2 = users[i]
 
-        if (user2.username === sessionStorage.username) {
+        if (user2.username === username) {
             user = user2
 
             break
         }
     }
 
-    ir(user === undefined)
-    throw new Error('user not found')
 
+    if (user === undefined)
+        throw new Error('user not found')
 
 
     return user
 
+
+
+
+}
+
+
+function retrieveUser() {
+    var user
+
+    var users = JSON.parse(localStorage.users || '[]')
+
+
+
+    for (var i = 0; i < users.length; i++) {
+        var user2 = users[i]
+
+        if (user2.id === sessionStorage.userId) {
+            user = user2
+
+            break
+        }
+    }
+
+
+    if (user === undefined)
+        throw new Error('user not found')
+
+
+    return user
+}
+
+
+function logoutUser() {
+    delete sessionStorage.userId
 }
