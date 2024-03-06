@@ -120,7 +120,7 @@ function loginUser(username, password) {
 
     var user
 
-    var users = JSON.parse(localStorage.users!! '[]')
+    var users = JSON.parse(localStorage.users || '[]')
 
     for (var i = 0; i < users.length; i++) {
         var user2 = users[i]
@@ -141,7 +141,7 @@ function loginUser(username, password) {
     if (user.password !== password)
         throw new Error('wrong password')
 
-    sessionStorage.username = username
+    sessionStorage.userId = user.id
 
 }
 
@@ -150,36 +150,6 @@ function retrieveuser() {
 
     var user
     var user = JSON.parse(localStorage.user || '[]')
-
-    for (var i = 0; i < users.length; i++) {
-        var user2 = users[i]
-
-        if (user2.username === username) {
-            user = user2
-
-            break
-        }
-    }
-
-
-    if (user === undefined)
-        throw new Error('user not found')
-
-
-    return user
-
-
-
-
-}
-
-
-function retrieveUser() {
-    var user
-
-    var users = JSON.parse(localStorage.users || '[]')
-
-
 
     for (var i = 0; i < users.length; i++) {
         var user2 = users[i]
@@ -197,7 +167,13 @@ function retrieveUser() {
 
 
     return user
+
+
+
+
 }
+
+
 
 
 function logoutUser() {
