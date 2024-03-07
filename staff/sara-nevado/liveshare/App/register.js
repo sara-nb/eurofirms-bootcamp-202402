@@ -17,7 +17,7 @@ form.onsubmit = function (event) {
     var birthdateInput = form.querySelector('#birthdate')
     var birthdate = birthdateInput.value
 
-    var usernameInput = form.querySelector('#usermame')
+    var usernameInput = form.querySelector('#username')
     var username = usernameInput.value
 
     var emailInput = form.querySelector('#email')
@@ -25,6 +25,7 @@ form.onsubmit = function (event) {
 
     var passwordInput = form.querySelector('#password')
     var password = passwordInput.value
+
 
 
 
@@ -42,11 +43,11 @@ form.onsubmit = function (event) {
 
 
 
+        anchor.click()
     } catch (error) {
-
         console.error(error.message)
+
 
         alert(error.message)
     }
-
 }
