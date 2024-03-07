@@ -1,181 +1,176 @@
 //business layer (logic)
 
+var logic = (function () {
+    //helpers
 
 
-function registerUser(name, birthdate, username, email, password) {
-    if (name.length < 1)
-        throw new Error('name is lower than 1 character')
+    function validateName(name) {
+        if (name.length < 1)
+            throw new Error('name is lower than 1 character')
 
-    var nameIsBlank = true
+        var nameIsBlank = true
 
 
-    for (var i = 0; i < name.length && nameIsBlank; i++) {
-        var char = name[i]
+        for (var i = 0; i < name.length && nameIsBlank; i++) {
+            var char = name[i]
 
-        if (char !== ' ')
-            nameIsBlank = false
+            if (char !== ' ')
+                nameIsBlank = false
+        }
+
+
+        if (nameIsBlank)
+            throw new Error('name is blank')
+    }
+
+    function validateBirthdate(birthdate) {
+
+        if (birthdate.length !== 10)
+            throw new Error('birthdate does not have 10 caracters')
+
+
+        if (birthdate.includes(' '))
+            throw new Error('birthdate has a space character')
+
+
+        if (birthdate.indexOf('-') !== 4 || birthdate.lastIndexOf('-') !== 7)
+            throw new Error('birthdate dashes are not in correct position')
+
+
+
+        // TODO 
+        // TODO 
+        // TODO 
+
+    }
+
+    function validateUsername(username) {
+        if (username.length < 3)
+            throw new Error('username is lower than 3 characters')
+
+        if (username.includes(' '))
+            throw new Error('username has a space character')
+
+        if (email.length < 6)
+            throw new Error('email is lower than 6 characters')
+
+        if (!email.includes('@'))
+            throw new Error('email has no @')
+
+        if (!email.includes('.'))
+            throw new Error('email has no .')
+
+        if (email.lastIndexOf('.') < email.indexOf('@'))
+            throw new Error('email has . before @')
+
+        if (email.lastIndexOf('.') - email.indexOf('@') < 2)
+            throw new Error('email has . next to @')
+
+        if (email.length - 1 - email.indexOf('.') < 2)
+            throw new Error('email domain is lower than 2 characters')
+
+        if (email.includes(' '))
+            throw new Error('email has space character')
+
+        if (password.length < 8)
+            throw new Error('password is lower than 8 characters')
+
+        if (password.includes(' '))
+            throw new Error('password has space character')
+
+        var users = JSON.parse(localStorage.users || '[]')
+
+    }
+
+    function validatepssword(password) {
+        if (password.length < 8)
+            throw new Error('password is lower than 8 characters')
+
+        if (password.includes(' '))
+            throw new Error('password has space character')
     }
 
 
-    if (nameIsBlank)
-        throw new Error('name is blank')
+
+    //LOGIC
+
+    function registerUser(name, birthdate, username, email, password) {
+        validateName(name)
+        validateBirthdate(birthdate)
+        validateUsername(username)
+        validateEmail(email)
+        validatePassword(password)
 
 
-    if (birthdate.length !== 10)
-        throw new Error('birthdate does not have 10 caracters')
+        var user = data.findUser(function (user) {
+            return user.username === username || user.email === email
+        })
 
-
-    if (birthdate.includes(' '))
-        throw new Error('birthdate has a space character')
-
-
-    if (birthdate.indexOf('-') !== 4 || birthdate.lastIndexOf('-') !== 7)
-        throw new Error('birthdate dashes are not in correct position')
-
-
-
-    // TODO 
-    // TODO 
-    // TODO 
-
-
-
-    if (username.length < 3)
-        throw new Error('username is lower than 3 characters')
-
-    if (username.includes(' '))
-        throw new Error('username has a space character')
-
-    if (email.length < 6)
-        throw new Error('email is lower than 6 characters')
-
-    if (!email.includes('@'))
-        throw new Error('email has no @')
-
-    if (!email.includes('.'))
-        throw new Error('email has no .')
-
-    if (email.lastIndexOf('.') < email.indexOf('@'))
-        throw new Error('email has . before @')
-
-    if (email.lastIndexOf('.') - email.indexOf('@') < 2)
-        throw new Error('email has . next to @')
-
-    if (email.length - 1 - email.indexOf('.') < 2)
-        throw new Error('email domain is lower than 2 characters')
-
-    if (email.includes(' '))
-        throw new Error('email has space character')
-
-    if (password.length < 8)
-        throw new Error('password is lower than 8 characters')
-
-    if (password.includes(' '))
-        throw new Error('password has space character')
-
-    var users = JSON.parse(localStorage.users || '[]')
-
-
-
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-
-        if (user.username === username || user.email === email)
+        if (user !== undefined)
             throw new Error('user already exists')
-    }
-
-    var user = {
-        id: parseInt(Math.random() * 1000000000000000000).toString(36),
-        name: name,
-        birthdate: birthdate,
-        username: username,
-        email: email,
-        password: password
-    }
 
 
-    users[users.length] = user
-
-    localStorage.users = JSON.stringify(users)
-}
-
-
-
-function loginUser(username, password) {
-    if (username.length < 3)
-        throw new Error('username is lower than 3 characters')
-
-    if (username.includes(' '))
-        throw new Error('username has a space character')
-
-    if (password.length < 8)
-        throw new Error('password is lower than 8 characters')
-
-    if (password.includes(' '))
-        throw new Error('password has space character')
-
-
-
-
-    var user
-
-    var users = JSON.parse(localStorage.users || '[]')
-
-    for (var i = 0; i < users.length; i++) {
-        var user2 = users[i]
-
-        if (user2.username === username) {
-            user = user2
-
-            break
+        var user = {
+            name: name,
+            birthdate: birthdate,
+            username: username,
+            email: email,
+            password: password
         }
+
+        data.insertUser(user)
     }
 
 
 
-
-    if (user === undefined)
-        throw new Error('user not found')
-
-    if (user.password !== password)
-        throw new Error('wrong password')
-
-    sessionStorage.userId = user.id
-
-}
+    function loginUser(username, password) {
+        validateUsername(username)
+        validatePassword(password)
 
 
-function retrieveuser() {
-
-    var user
-    var user = JSON.parse(localStorage.user || '[]')
-
-    for (var i = 0; i < users.length; i++) {
-        var user2 = users[i]
-
-        if (user2.id === sessionStorage.userId) {
-            user = user2
-
-            break
+        var user = data.findUser(function (user) {
+            return user.username === username
         }
+        )
+
+
+        if (user === undefined)
+            throw new Error('user not found')
+
+        if (user.password !== password)
+            throw new Error('wrong password')
+
+
+        sessionStorage.userId = user.id
     }
 
 
-    if (user === undefined)
-        throw new Error('user not found')
-
-
-    return user
-
-
-
-
-}
+    function retrieveUser() {
+        var user = data.findUser(function (user) {
+            return user.id === sessionStorage.userId
+        }
+        )
 
 
 
+        if (user === undefined)
+            throw new Error('user not found')
 
-function logoutUser() {
-    delete sessionStorage.userId
-}
+
+        return user
+    }
+
+
+    function logoutUser() {
+        delete sessionStorage.userId
+    }
+
+
+    return {
+        registerUser: registerUser,
+        loginUser: loginUser,
+        retrieveUser: retrieveUser,
+        logoutUser: logoutUser
+
+    }
+})()
