@@ -16,18 +16,17 @@ form.onsubmit = function (event) {
 
 
     try {
-        loginUser(username, password)
+        logic.loginUser(username, password)
 
         console.log('user logged in')
-
 
         form.reset()
 
 
         var loginAdress = location.href
 
-        var homeAddress = loginAddress.replace('login, 'home')
-         location.href = homeAddress
+        var homeAddress = loginAddress.replace('login', 'home')
+        location.href = homeAddress
 
     } catch (error) {
         console.error(error.message)
