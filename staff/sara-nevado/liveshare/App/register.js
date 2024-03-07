@@ -30,7 +30,7 @@ form.onsubmit = function (event) {
 
 
     try {
-        registerUser(name, birthdate, username, email, password)
+        logic.registerUser(name, birthdate, username, email, password)
 
         console.log('user registered')
 
