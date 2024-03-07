@@ -24,7 +24,7 @@ try {
 
 
 logoutButton.onclick = function () {
-    logoutUser()
+    logic.logoutUser()
 
 
 
