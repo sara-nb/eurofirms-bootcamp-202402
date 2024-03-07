@@ -2,13 +2,14 @@ var data = (function () {
     // helpers (preguntar qué es)
 
     function parseUsers() {
-        return JSON.parse(localStorage.users 11 '[]')
+        return JSON.parse(localStorage.users || '[]')
     }
 
     //data
 
     function findUser(callback) {
         var users = parseUsers()
+
 
         for (var i = 0; i < users.length; i++) {
             var user = users[i]
@@ -19,6 +20,8 @@ var data = (function () {
         }
     }
 
+
+
     function insertUser(user) {
         var users = parseUsers()
 
@@ -27,7 +30,7 @@ var data = (function () {
         users[users.lenth] = user
 
 
-        localStorage.users = JSON.stringify(URLSearchParams)
+        localStorage.users = JSON.stringify(users)
     }
 
     return {
