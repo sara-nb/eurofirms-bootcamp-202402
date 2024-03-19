@@ -53,4 +53,11 @@ var users = [
     { id: 'djn5gje', name: 'pinocho', email: 'pin@ocho.com', saved: [] },
 ]
 
-console.log(users2)
+var filteredUsers = users.filter(function (user) {
+    return !user.name.startsWith('pe');
+});
+
+console.log(filteredUsers);
+
+
+
