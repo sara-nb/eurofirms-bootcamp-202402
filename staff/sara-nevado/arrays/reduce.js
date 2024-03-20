@@ -79,9 +79,20 @@ var users = [
 ]
 
 
-var usersWithPe = users.filter(user => user.name.startsWith('pe'));
+var usersWithPe = users.reduce(function (acumulator, user) {
+    if (user.name.startsWith('pe')) {
+        accumulator.push(user)
+        return accumulator
+        return [...acumulator, user]
+    }
+})
 
-console.log(usersWithPe);
+
+//caso igual pero con filter
+//var usersWithPe = users.filter(user => user.name.startsWith('pe'));
+
+//console.log(usersWithPe);
+//*
 
 
 
